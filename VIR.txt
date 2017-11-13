@@ -1,0 +1,7 @@
+1;test;56;Euro;azerty;azert
+1;test;56;Euro;azerty;azert
+1;test;56;Euro;azerty;azert
+1;test;56;Euro;azerty;azert
+1;test;56;Euro;azerty;azert
+1;test;56;Euro;azerty;azert
+1;test;4567;Euro;123456;7890

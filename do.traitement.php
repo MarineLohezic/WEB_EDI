@@ -1,38 +1,57 @@
 <?php
+$virement = fopen('VIR.txt', 'a');
+$prelevement = fopen('PRE.txt', 'a');
+$numlot=time();
 
-if ($_POST['choix']=="Vir") // On a eu une erreur
-{	
-	$monfichier = fopen('VIR.txt', 'a');
-}else{
-	$monfichier = fopen('PRE.txt', 'a');
+for ($i = 1; $i <= 5; $i++) {
+	if(!empty($_POST['montant'.$i])){
+		$data= array($numlot,$_GET['id'],$_POST['montant'.$i], $_POST['devise'.$i], $_POST['Cmp_Or'.$i] , $_POST['Cmp_Dest'.$i]);
+		$nouvelleLigne= implode(";", $data);
+		if ($_POST['choix'.$i]=="Vir") {
+			fwrite($virement, $nouvelleLigne."\r\n");
+		}else{
+			fwrite($prelevement, $nouvelleLigne."\r\n");
+		}
+	}
 }
 
-// On lit la première ligne du fichier
-$ligne = fgets($monfichier);
+fclose($virement);
+fclose($prelevement);
 
-if (!empty($ligne)){
-	//SI la liste n'est pas vide on recupere notament le numero de lot
-	list($numlot, $id, $montant, $devise, $compteor, $comptDest) = explode(";", $ligne);
-}
-else{
-	$numlot=0;
-}
+$virement = fopen('VIR.txt', 'r');
+$prelevement = fopen('PRE.txt', 'r');
+	//Calcul des resultats
+$totalvir=0;
+$nbvir=0;
+	$vir = fgets($virement);
+	/*Tant que l'on est pas à la fin du fichier (la ligne existe) */
+	while (!feof($virement))
+	{
+		/*On affiche la ligne courante */
+		list($newnumlot, $id, $montant, $devise, $comp_or, $comp_dest) = explode(";", $vir);
+		if ($newnumlot==$numlot){
+			$totalvir=$totalvir+ $montant;
+			$nbvir=$nbvir+1;
+		}
+		$vir = fgets($virement);
+	}
 
-$numlot=$numlot+1;
-
-
-//Def tableau +id + numLot
-$data= array($numlot,$_GET['id'],$_POST['montant'], $_POST['devise'], $_POST['Cmp_Or'] , $_POST['Cmp_Dest']);
-
-//fputs($monfichier, implode(";", $data)); 
-//file_put_contents($monfichier, implode(";", $data), FILE_APPEND);
-$nouvelleLigne= implode(";", $data);
-
-fwrite($monfichier, "\r\n".$nouvelleLigne);
-
-
-header ('Location: resultat.php');
-
-// On ferme le fichier
-fclose($monfichier);
+$totalpre=0;
+$nbpre=0;
+	$pre = fgets($prelevement);
+	/*Tant que l'on est pas à la fin du fichier (la ligne existe) */
+	while (!feof($prelevement))
+	{
+		/*On affiche la ligne courante */
+		list($newnumlot, $id, $montant, $devise, $comp_or, $comp_dest) = explode(";", $pre);
+		if ($newnumlot==$numlot){
+			$totalpre=$totalpre+ $montant;
+			$nbpre=$nbpre+1;
+		}
+		$pre = fgets($prelevement);
+	}
+// On ferme les fichiers
+fclose($virement);
+fclose($prelevement);
+header ('Location: resultat.php?nbvir='.$nbvir.'&totalvir='.$totalvir.'&nbpre='.$nbpre.'&totalpre='.$totalpre);
 ?>

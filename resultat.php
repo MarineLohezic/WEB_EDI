@@ -2,11 +2,12 @@
 <html>
     <head>
         <meta charset="utf-8" />
+         <link rel="stylesheet" href="style.css" />
         <title>WEB_EDI</title>
     </head>
     <body>
-        <h1>Nb Montant</h1>
-        <p> VIR</p>
-        <p> PRE </p>
+        <h1>Bilan:</h1>
+        <p> Nombre de virement :  <?php echo $_GET['nbvir'] ?> pour un total de : <?php echo $_GET['totalvir'] ?> €</p>
+        <p> Nombre de prelevement :  <?php echo $_GET['nbpre'] ?> pour un total de : <?php echo $_GET['totalpre'] ?> €</p>
     </body>
 </html>

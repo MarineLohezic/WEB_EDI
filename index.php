@@ -6,7 +6,7 @@
         <title>WEB_EDI</title>
     </head>
     <body>
-        <h1>WEB_EDI</h1>
+    	<header> <h1>WEB_EDI</h1> </header>
         <div class="error">
         <?php
 			if (isset($_GET['error'])) // On a eu une erreur
@@ -14,13 +14,21 @@
 				echo ' Mauvaise authentification, veuillez rééssayer' ;
 			}
 		?>
-		</div>
+		</div> 
+		<form action="inscription.php" method="post">
+			<input class="bold" type="submit" value="Inscription"></p>
+		</form>
+		<h4> Se connecter : </h4>
 		<form action="do.authentification.php" method="post">
-		<div class="flex">
-		 <p>Id : <input type="text" name="id" /></p>
-		 <p>Mot de passe : <input type="password" name="password" /></p>
-		 <p><input type="submit" value="Valider"></p>
-		</div>
+			<div class="colonne">
+				<label for="identifiant"> Identifiant : </label>
+				<input id="identifiant" type="text" name="id" />
+				<label for="mdp"> Mot de passe : </label>
+				<input id="mdp" type="password" name="password" />
+				<div class="sub">
+			 		<input type="submit" value="Valider">
+			 	</div>
+			</div>
 		</form>
     </body>
 </html>

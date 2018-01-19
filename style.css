@@ -1,25 +1,32 @@
-html, body {
-    height: 100%;
-}
-
 html {
     display: table;
     margin: auto;
 }
 
-.flex {
-  display: flex; /* or inline-flex */
-  flex-direction: ltr;
-}
-
 body {
 	background-color: rgba(245, 212, 221, 0.15);
-	display: table-cell;
-    vertical-align: middle;
 }
 
-h1{color:rgba(232, 86, 126, 0.94);}
+h1{
+	color:rgba(232, 86, 126, 0.94);
+}
 
 .error{
 	color:red;
+}
+
+.colonne{
+	display: flex;
+	flex-direction: column ;
+}
+
+.bold{
+	width: 100%;
+	font-weight: bold;
+}
+
+.sub{
+	display: flex;
+	margin: 10px;
+	justify-content: flex-end;
 }

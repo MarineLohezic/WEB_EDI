@@ -11,7 +11,7 @@
 			<input class="bold" type="submit" value="Se connecter">
 		</form>
     	<h4>Inscription :</h4>
-    	<form action="do.Inscription.php" method="post">
+    	<form action="do.inscription.php" method="post">
 		<div class="colonne">
 			<label for="identifiant"> Identifiant : </label>
 			<input id="identifiant" type="text" name="login" />

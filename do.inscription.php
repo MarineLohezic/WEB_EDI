@@ -1,4 +1,10 @@
 <?php
+
+//On test si les deux motse passe sont identiques
+if($_POST['password1']!=$_POST['password2']){
+	header ('Location: inscription.php?error_password=true');
+}
+
 // On test la connexion à la base de données
 try
 {

@@ -22,9 +22,9 @@
 		<form action="do.authentification.php" method="post">
 			<div class="colonne">
 				<label for="identifiant"> Identifiant : </label>
-				<input id="identifiant" type="text" name="id" />
+				<input id="identifiant" type="text" name="id" required/>
 				<label for="mdp"> Mot de passe : </label>
-				<input id="mdp" type="password" name="password" />
+				<input id="mdp" type="password" name="password" required />
 				<div class="sub">
 			 		<input type="submit" value="Valider">
 			 	</div>

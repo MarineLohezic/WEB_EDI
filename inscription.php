@@ -17,6 +17,18 @@
 			{
 				echo 'Attention les deux mots de passe ne correspondent pas !' ;
 			}
+			if (isset($_GET['error_login'])) 
+			{
+				echo 'Attention ce login a déjà été choisit par un autre utilisateur, veuillez en choisir un autre.' ;
+			}
+			if (isset($_GET['success'])) 
+			{
+				echo 'Votre inscription a été prise en compte, veuillez à présent vous connecter' ;
+			}
+			if (isset($_GET['error_insert'])) 
+			{
+				echo 'Une erreur a eu lieu lors de votre inscription' ;
+			}
 		?>
 		</div> 
     	<form action="do.inscription.php" method="post">

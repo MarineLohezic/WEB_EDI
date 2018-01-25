@@ -11,19 +11,22 @@
 		<form action="do.traitement.php?id=<?php echo $_GET['id']; ?>" method="post">
 			<?php 
 				for ($i = 1; $i <= 5; $i++) {
-					echo('<div class="flex">
+					echo('<div style="margin: 5px;";>
 						<select name="choix'.$i.'">
 						    <option value="Vir">Vir</option>
 						    <option value="Pre">Pre</option>
 						</select>
-						<p>Montant : <input type="number" name="montant'.$i.'" /></p>
+						<label for="montant"> Montant : </label>
+						<input id="montant" type="number" name="montant'.$i.'" />
 						<select name="devise'.$i.'">
 						    <option value="Euro">€</option>
 						    <option value="Dollar">$</option>
 						    <option value="Livre">£</option>
 						</select>
-						<p>Compte Origine: <input type="text" name="Cmp_Or'.$i.'" /></p>
-						<p>Compte Destinataire : <input type="text" name="Cmp_Dest'.$i.'" /></p>
+						<label for="origine"> Compte d\'origine : </label>
+						<input id="origine" type="text" name="Cmp_Or'.$i.'" />
+						<label for="destinataire"> Compte destinataire : </label>
+						<input id="destinataire" type="text" name="Cmp_Dest'.$i.'" />
 						</div>'
 					);
 				}

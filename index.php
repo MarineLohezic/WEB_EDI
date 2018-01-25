@@ -22,7 +22,7 @@
 		<form action="do.authentification.php" method="post">
 			<div class="colonne">
 				<label for="identifiant"> Identifiant : </label>
-				<input id="identifiant" type="text" name="id" required/>
+				<input id="identifiant" type="text" name="login" required/>
 				<label for="mdp"> Mot de passe : </label>
 				<input id="mdp" type="password" name="password" required />
 				<div class="sub">

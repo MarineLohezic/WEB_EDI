@@ -1,6 +1,4 @@
 <?php
-$virement = fopen('VIR.txt', 'a');
-$prelevement = fopen('PRE.txt', 'a');
 $numlot=time();
 
 for ($i = 1; $i <= 5; $i++) {
@@ -50,8 +48,5 @@ $nbpre=0;
 		}
 		$pre = fgets($prelevement);
 	}
-// On ferme les fichiers
-fclose($virement);
-fclose($prelevement);
 header ('Location: resultat.php?nbvir='.$nbvir.'&totalvir='.$totalvir.'&nbpre='.$nbpre.'&totalpre='.$totalpre);
 ?>

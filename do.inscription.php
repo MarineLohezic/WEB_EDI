@@ -36,7 +36,7 @@ else{
 	// On initialise la transaction
 	$connection-> beginTransaction();
 
-	$Requete_ajout=$connection-> prepare("Insert into UTILISATEURS (ID,LOGIN,MDP,NOM,PRENOM,NB_TENTATIVE,DATE_CONNEXION) VALUES (NULL, ?,?,?,?,0,NULL);");
+	$Requete_ajout=$connection-> prepare("Insert into UTILISATEURS (ID,LOGIN,MDP,NOM,PRENOM,NB_TENTATIVE,DATE_CONNEXION) VALUES (NULL, ?,?,?,?,0,'2017-01-01');");
 	$Requete_ajout->bindParam(1,$_POST['login']);
 	$Requete_ajout->bindParam(2,$_POST['password1']);
 	$Requete_ajout->bindParam(3,$_POST['lastname']);

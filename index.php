@@ -13,6 +13,10 @@
 			{
 				echo ' Mauvaise authentification, veuillez rééssayer' ;
 			}
+			if (isset($_GET['tentative'])) // On a eu une erreur
+			{
+				echo 'Trop de tentatives, votre compte est bloqué' ;
+			}
 		?>
 		</div> 
 		<form action="inscription.php" method="post">

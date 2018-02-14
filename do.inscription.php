@@ -24,7 +24,6 @@ try
 
 $Requete_preparee= $connection-> prepare("Select * from UTILISATEURS where login =?");
 $Requete_preparee->bindParam(1,$_POST['login']);
-
 $Requete_preparee->execute();
 
  //L'identifiant est déjà dans la base
@@ -51,7 +50,5 @@ else{
 		$connection->rollback();
 		header ('Location: inscription.php?error_insert=true');
 	}
-	
 }
-
 ?>

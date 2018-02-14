@@ -6,6 +6,18 @@
         <title>WEB_EDI</title>
     </head>
     <body>
+    	<div class="error">
+        <?php
+    		if (isset($_GET['error_insert'])) // On a eu une erreur
+			{
+				echo 'Une erreur est survenue lors du traitement des transactions, aucune transaction n\'a été prise en compte ';
+			}
+			if (isset($_GET['error_vide'])) // On a eu une erreur
+			{
+				echo 'Veuillez compléter au moins une transaction avant de valider ';
+			}
+		?>
+		</div>
 		<h1>Bonjour <?php echo $_GET['nom'] . ' ' . $_GET['prenom']; ?> </h1>
 
 		<form action="do.traitement.php?id=<?php echo $_GET['id']; ?>" method="post">

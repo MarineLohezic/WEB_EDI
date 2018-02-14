@@ -1,52 +1,76 @@
 <?php
 $numlot=time();
-
-for ($i = 1; $i <= 5; $i++) {
-	if(!empty($_POST['montant'.$i])){
-		$data= array($numlot,$_GET['id'],$_POST['montant'.$i], $_POST['devise'.$i], $_POST['Cmp_Or'.$i] , $_POST['Cmp_Dest'.$i]);
-		$nouvelleLigne= implode(";", $data);
-		if ($_POST['choix'.$i]=="Vir") {
-			fwrite($virement, $nouvelleLigne."\r\n");
-		}else{
-			fwrite($prelevement, $nouvelleLigne."\r\n");
-		}
-	}
+$date = date('Y-m-d H:i:s', substr($numlot, 0, -3));
+$vide=0;
+try
+{
+	$host = 'mysql:host=localhost;dbname=WEB_EDI';
+	$utilisateur = 'root';
+	$motDePasse = NULL;
+	$options = array(
+		PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8",
+		PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION 
+	);
+	$connection = new PDO($host, $utilisateur, $motDePasse, $options);
+}catch( Exception $e )
+{
+	echo "Connection à MySQL impossible : ", $e->getMessage();
+	die();
 }
 
-fclose($virement);
-fclose($prelevement);
+// On initialise la transaction
+$connection-> beginTransaction();
 
-$virement = fopen('VIR.txt', 'r');
-$prelevement = fopen('PRE.txt', 'r');
-	//Calcul des resultats
-$totalvir=0;
-$nbvir=0;
-	$vir = fgets($virement);
-	/*Tant que l'on est pas à la fin du fichier (la ligne existe) */
-	while (!feof($virement))
-	{
-		/*On affiche la ligne courante */
-		list($newnumlot, $id, $montant, $devise, $comp_or, $comp_dest) = explode(";", $vir);
-		if ($newnumlot==$numlot){
-			$totalvir=$totalvir+ $montant;
-			$nbvir=$nbvir+1;
-		}
-		$vir = fgets($virement);
-	}
-
-$totalpre=0;
 $nbpre=0;
-	$pre = fgets($prelevement);
-	/*Tant que l'on est pas à la fin du fichier (la ligne existe) */
-	while (!feof($prelevement))
-	{
-		/*On affiche la ligne courante */
-		list($newnumlot, $id, $montant, $devise, $comp_or, $comp_dest) = explode(";", $pre);
-		if ($newnumlot==$numlot){
-			$totalpre=$totalpre+ $montant;
-			$nbpre=$nbpre+1;
+$nbvir=0;
+$totalpre=0;
+$totalvir=0;
+//On parcours les enregistrements
+for ($i = 1; $i <= 5; $i++) {
+	if(!empty($_POST['montant'.$i]) && !empty($_POST['Cmp_Or'.$i]) && !empty($_POST['Cmp_Dest'.$i])){
+		$execution[$i]=0;
+		$Requete_ajout=$connection-> prepare("Insert into OPERATIONS (ID,TYPE,MONTANT,CPT_ORIGINE,CPT_DEST,DEVISE,ID_UTILISATEUR,ID_LOT) VALUES (NULL, ?,?,?,?,?,?,?);");
+		$execution[$i]=$Requete_ajout->execute(array($_POST['choix'.$i],intval($_POST['montant'.$i]), $_POST['Cmp_Or'.$i], $_POST['Cmp_Dest'.$i],$_POST['devise'.$i],$_GET['id'],$date));
+
+		if($_POST['choix'.$i]=="Pre"){
+			$nbpre++;
+			$totalpre+=$_POST['montant'.$i];
+		}else{
+			$nbvir++;
+			$totalvir+=$_POST['montant'.$i];
 		}
-		$pre = fgets($prelevement);
+		
+	}else{
+		$vide++;
 	}
-header ('Location: resultat.php?nbvir='.$nbvir.'&totalvir='.$totalvir.'&nbpre='.$nbpre.'&totalpre='.$totalpre);
+}
+if ($vide == 5){
+	$Requete_preparee= $connection-> prepare("Select * from UTILISATEURS where id =?");
+	$Requete_preparee->bindParam(1,$_GET['id']);
+	$Requete_preparee->execute();
+	$enregistrement = $Requete_preparee->fetch(PDO::FETCH_ASSOC);
+
+	header ('Location: saisie.php?nom='.$enregistrement["NOM"].'&prenom='.$enregistrement["PRENOM"].'&id='.$enregistrement["ID"].'&error_vide=true');
+}else{
+	$testcommit=0;
+
+	foreach ($execution as $exe){
+    	if ($exe!=1){
+    		$testcommit++;
+    	}
+	}
+	if($testcommit==0){
+		$connection-> commit();
+		header ('Location: resultat.php?nbvir='.$nbvir.'&totalvir='.$totalvir.'&nbpre='.$nbpre.'&totalpre='.$totalpre);
+	}
+	else{
+		$connection->rollback();
+		$Requete_preparee= $connection-> prepare("Select * from UTILISATEURS where id =?");
+		$Requete_preparee->bindParam(1,$_GET['id']);
+		$Requete_preparee->execute();
+		$enregistrement = $Requete_preparee->fetch(PDO::FETCH_ASSOC);
+
+		header ('Location: saisie.php?nom='.$enregistrement["NOM"].'&prenom='.$enregistrement["PRENOM"].'&id='.$enregistrement["ID"].'&error_insert=true');
+	}
+}
 ?>

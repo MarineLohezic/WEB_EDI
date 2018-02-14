@@ -18,7 +18,7 @@ try
 
 $Requete_preparee= $connection-> prepare("Select * from UTILISATEURS where LOGIN=? AND MDP=? ");
 $Requete_preparee->bindParam(1,$_POST['login']);
-$Requete_preparee->bindParam(2,$_POST['password']);
+$Requete_preparee->bindParam(2,password_hash($_POST['password'],PASSWORD_BCRYPT)); // PB hachage retour
 $Requete_preparee->execute();
 
  //Les identifiants correspondent a un enregistrement de la base

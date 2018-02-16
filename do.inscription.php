@@ -37,11 +37,10 @@ else{
 
 	$Requete_ajout=$connection-> prepare("Insert into UTILISATEURS (ID,LOGIN,MDP,NOM,PRENOM,NB_TENTATIVE,DATE_CONNEXION) VALUES (NULL, ?,?,?,?,0,'2017-01-01');");
 	$Requete_ajout->bindParam(1,$_POST['login']);
-	$Requete_ajout->bindParam(2, password_hash($_POST['password1'],PASSWORD_BCRYPT));
+	$Requete_ajout->bindParam(2, password_hash($_POST['password1'],PASSWORD_DEFAULT));
 	$Requete_ajout->bindParam(3,$_POST['lastname']);
 	$Requete_ajout->bindParam(4,$_POST['firstname']);
 	$execution= $Requete_ajout->execute();
- 
 	if ($execution ==1){
 		$connection-> commit();
 		header ('Location: inscription.php?success=true');

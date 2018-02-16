@@ -16,37 +16,36 @@ try
 	die();
 }
 
-$Requete_preparee= $connection-> prepare("Select * from UTILISATEURS where LOGIN=? AND MDP=? ");
-$Requete_preparee->bindParam(1,$_POST['login']);
-$Requete_preparee->bindParam(2,password_hash($_POST['password'],PASSWORD_BCRYPT)); // PB hachage retour
-$Requete_preparee->execute();
+$Requete_preparee= $connection-> prepare("Select * from UTILISATEURS where LOGIN=?");
+$Requete_preparee->bindParam(1,$_POST['login']);/*
+$Requete_preparee->bindParam(2, password_hash($_POST['password'],PASSWORD_DEFAULT)); // PB hachage retour
+*/$Requete_preparee->execute();
 
- //Les identifiants correspondent a un enregistrement de la base
-if($enregistrement = $Requete_preparee->fetch(PDO::FETCH_ASSOC))
-	{
-		if ($enregistrement["NB_TENTATIVE"] >=3 ){
-			header ('Location: index.php?tentative=true');
-		}else{
-			$date = date("Y-m-d");
-			$Requete_preparee= $connection-> prepare("UPDATE UTILISATEURS SET DATE_CONNEXION=?, NB_TENTATIVE=0 WHERE ID=?;");
-			$Requete_preparee->execute(array($date,$enregistrement["ID"]));
+if($enregistrement = $Requete_preparee->fetch(PDO::FETCH_ASSOC)){
 
-			header ('Location: saisie.php?nom='.$enregistrement["NOM"].'&prenom='.$enregistrement["PRENOM"].'&id='.$enregistrement["ID"]);
-		}
-	}
-else{
-	$Requete_preparee= $connection-> prepare("Select * from UTILISATEURS where LOGIN=?");
-	$Requete_preparee->bindParam(1,$_POST['login']);
-	$Requete_preparee->execute();
-	if($loginTrue = $Requete_preparee->fetch(PDO::FETCH_ASSOC))
+	if(password_verify($_POST['password'],$enregistrement['MDP']))
 		{
-			if ($loginTrue["NB_TENTATIVE"] >=3 ){
+			if ($enregistrement["NB_TENTATIVE"] >=3 ){
+				header ('Location: index.php?tentative=true');
+			}else{
+				$date = date("Y-m-d");
+				$Requete_preparee= $connection-> prepare("UPDATE UTILISATEURS SET DATE_CONNEXION=?, NB_TENTATIVE=0 WHERE ID=?;");
+				$Requete_preparee->execute(array($date,$enregistrement["ID"]));
+
+				header ('Location: saisie.php?nom='.$enregistrement["NOM"].'&prenom='.$enregistrement["PRENOM"].'&id='.$enregistrement["ID"]);
+			}
+		}
+	else{
+			if ($enregistrement["NB_TENTATIVE"] >=3 ){
 				header ('Location: index.php?tentative=true');
 			}else{
 				$Requete_preparee= $connection-> prepare("update UTILISATEURS set NB_TENTATIVE=? where LOGIN=? ");
-				$Requete_preparee->execute(array($loginTrue["NB_TENTATIVE"]+1,$loginTrue["LOGIN"]));
+				$Requete_preparee->execute(array($enregistrement["NB_TENTATIVE"]+1,$enregistrement["LOGIN"]));
+				header ('Location: index.php?error=true');
 			}
 		}
+	
+}else{
 	header ('Location: index.php?error=true');
 }
 ?>

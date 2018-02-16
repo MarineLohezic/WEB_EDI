@@ -1,5 +1,8 @@
 <?php
 
+//require 'vendor/autoload.php';
+use \Mailjet\Resources;
+
 //On test si les deux motse passe sont identiques
 if($_POST['password1']!=$_POST['password2']){
 	header ('Location: inscription.php?error_password=true');
@@ -43,7 +46,36 @@ else{
 	$execution= $Requete_ajout->execute();
 	if ($execution ==1){
 		$connection-> commit();
-		header ('Location: inscription.php?success=true');
+		//header ('Location: inscription.php?success=true');
+
+		//MAIL
+
+
+		$apikey = 'f22758a3ac56b3ea3e33ddc95bd35174';
+		$apisecret = '76109d1a1bf6b5846b99f5f5d6482930';
+
+		$mj = new \Mailjet\Client($apikey, $apisecret);
+
+		$body = [
+		    'Messages' => [
+		        [
+		            'From' => [
+		                'Email' => "pilot@mailjet.com",
+		                'Name' => "Mailjet Pilot"
+		            ],
+		            'To' => [
+		                [
+		                    'Email' => "lohezic.marine@gmail.com",
+		                    'Name' => "passenger 1"
+		                ]
+		            ],
+		            'Subject' => "Your email flight plan!",
+		            'TextPart' => "Dear passenger 1, welcome to Mailjet! May the delivery force be with you!",
+		            'HTMLPart' => "<h3>Dear passenger 1, welcome to Mailjet!</h3><br />May the delivery force be with you!"
+		        ]
+		    ]
+		];
+		$response = $mj->post(Resources::$Email, ['body' => $body]);
 	}
 	else{
 		$connection->rollback();

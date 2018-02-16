@@ -1,10 +1,14 @@
 <?php
-
 try
 {
-	$host = 'mysql:host=localhost;dbname=WEB_EDI';
+	/*$host = 'mysql:host=localhost;dbname=WEB_EDI';
 	$utilisateur = 'root';
-	$motDePasse = NULL;
+	$motDePasse = NULL;*/
+
+	//clevercloud 
+	$host= 'mysql:host=buds9nnrx-mysql.services.clever-cloud.com;dbname=buds9nnrx:port=3306;';
+	$utilisateur= 'ukgxbhg7pl152ibd';
+	$motDePasse='3QgbjRSXojTMz3l7JMF';
 	$options = array(
 		PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8",
 		PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION 
@@ -17,9 +21,8 @@ try
 }
 
 $Requete_preparee= $connection-> prepare("Select * from UTILISATEURS where LOGIN=?");
-$Requete_preparee->bindParam(1,$_POST['login']);/*
-$Requete_preparee->bindParam(2, password_hash($_POST['password'],PASSWORD_DEFAULT)); // PB hachage retour
-*/$Requete_preparee->execute();
+$Requete_preparee->bindParam(1,$_POST['login']);
+$Requete_preparee->execute();
 
 if($enregistrement = $Requete_preparee->fetch(PDO::FETCH_ASSOC)){
 
@@ -44,7 +47,6 @@ if($enregistrement = $Requete_preparee->fetch(PDO::FETCH_ASSOC)){
 				header ('Location: index.php?error=true');
 			}
 		}
-	
 }else{
 	header ('Location: index.php?error=true');
 }

@@ -53,9 +53,7 @@ else{
 		header ('Location: inscription.php?success=true');
 
 		//MAIL
-
-
-		$apikey = 'f22758a3ac56b3ea3e33ddc95bd35174';
+		/*$apikey = 'f22758a3ac56b3ea3e33ddc95bd35174';
 		$apisecret = '76109d1a1bf6b5846b99f5f5d6482930';
 
 		$mj = new \Mailjet\Client($apikey, $apisecret);
@@ -79,7 +77,7 @@ else{
 		        ]
 		    ]
 		];
-		$response = $mj->post(Resources::$Email, ['body' => $body]);
+		$response = $mj->post(Resources:*/:$Email, ['body' => $body]);
 	}
 	else{
 		$connection->rollback();

@@ -6,7 +6,7 @@ try
 	$motDePasse = NULL;*/
 
 	//clevercloud 
-	$host= 'mysql:host=buds9nnrx-mysql.services.clever-cloud.com;dbname=buds9nnrx:port=3306;';
+	$host= 'mysql:host=buds9nnrx-mysql.services.clever-cloud.com;dbname=buds9nnrx;port=3306;';
 	$utilisateur= 'ukgxbhg7pl152ibd';
 	$motDePasse='3QgbjRSXojTMz3l7JMF';
 	$options = array(

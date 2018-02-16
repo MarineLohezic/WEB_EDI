@@ -31,7 +31,7 @@
 			}
 		?>
 		</div> 
-    	<form action="do.inscription.php" method="post">
+    	<form action="do-inscription.php" method="post">
 		<div class="colonne">
 			<label for="identifiant"> Identifiant : </label>
 			<input id="identifiant" type="email" name="login" required/>

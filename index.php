@@ -23,7 +23,7 @@
 			<input class="bold" type="submit" value="Inscription"></p>
 		</form>
 		<h4> Se connecter : </h4>
-		<form action="do.authentification.php" method="post">
+		<form action="do-authentification.php" method="post">
 			<div class="colonne">
 				<label for="identifiant"> Identifiant : </label>
 				<input id="identifiant" type="text" name="login" required/>

@@ -11,9 +11,13 @@ if($_POST['password1']!=$_POST['password2']){
 // On test la connexion à la base de données
 try
 {
-	$host = 'mysql:host=localhost;dbname=WEB_EDI';
+	/*$host = 'mysql:host=localhost;dbname=WEB_EDI';
 	$utilisateur = 'root';
-	$motDePasse = NULL;
+	$motDePasse = NULL;*/
+
+	$host= 'mysql:host=buds9nnrx-mysql.services.clever-cloud.com;dbname=buds9nnrx:port=3306;';
+	$utilisateur= 'ukgxbhg7pl152ibd';
+	$motDePasse='3QgbjRSXojTMz3l7JMF';
 	$options = array(
 		PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8",
 		PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION 
@@ -46,7 +50,7 @@ else{
 	$execution= $Requete_ajout->execute();
 	if ($execution ==1){
 		$connection-> commit();
-		//header ('Location: inscription.php?success=true');
+		header ('Location: inscription.php?success=true');
 
 		//MAIL
 

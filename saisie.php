@@ -8,6 +8,10 @@
     <body>
     	<div class="error">
         <?php
+        	require('session.php');
+        	if(!isset($_SESSION['nom'])){
+        		header ('Location: index.php?auth=true');
+        	}
     		if (isset($_GET['error_insert'])) // On a eu une erreur
 			{
 				echo 'Une erreur est survenue lors du traitement des transactions, aucune transaction n\'a été prise en compte ';
@@ -18,9 +22,12 @@
 			}
 		?>
 		</div>
-		<h1>Bonjour <?php echo $_GET['nom'] . ' ' . $_GET['prenom']; ?> </h1>
+		<div class="droite">
+			<a style="color:rgba(232, 86, 126, 0.94);" href="do.deconnexion.php">Déconnexion</a>
+		</div>
+		<h1>Bonjour <?php echo $_SESSION['nom'] . ' ' . $_SESSION['prenom']; ?> </h1>
 
-		<form action="do.traitement.php?id=<?php echo $_GET['id']; ?>" method="post">
+		<form action="do.traitement.php" method="post">
 			<?php 
 				for ($i = 1; $i <= 5; $i++) {
 					echo('<div style="margin: 5px;";>

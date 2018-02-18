@@ -9,6 +9,16 @@
     	<header> <h1>WEB_EDI</h1> </header>
         <div class="error">
         <?php
+
+       		if (isset($_GET['validation'])) // On a eu une erreur
+			{
+				echo 'Veuillez valider votre inscription avant de vouc connecter' ;
+			}
+
+        	if (isset($_GET['auth'])) // On a eu une erreur
+			{
+				echo 'Veuillez vous connecter pour continuer' ;
+			}
 			if (isset($_GET['error'])) // On a eu une erreur
 			{
 				echo ' Mauvaise authentification, veuillez rééssayer' ;
@@ -20,13 +30,15 @@
 		?>
 		</div> 
 		<form action="inscription.php" method="post">
-			<input class="bold" type="submit" value="Inscription"></p>
+			<input class="bold" type="submit" value="Inscription"/>
 		</form>
 		<h4> Se connecter : </h4>
-		<form action="do-authentification.php" method="post">
+		<form action="do.authentification.php" method="post">
 			<div class="colonne">
 				<label for="identifiant"> Identifiant : </label>
-				<input id="identifiant" type="text" name="login" required/>
+
+				<input id="identifiant" type="text" name="login" required value= <?php if(isset($_COOKIE["login"])){ 
+						echo $_COOKIE["login"];}else{echo "";} ?>>
 				<label for="mdp"> Mot de passe : </label>
 				<input id="mdp" type="password" name="password" required />
 				<div class="sub">

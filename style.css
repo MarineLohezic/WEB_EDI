@@ -30,3 +30,8 @@ h1{
 	margin: 10px;
 	justify-content: flex-end;
 }
+
+.droite{
+	display:flex;
+	justify-content: flex-end;
+}

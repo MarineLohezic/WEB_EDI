@@ -23,7 +23,7 @@
 			}
 			if (isset($_GET['success'])) 
 			{
-				echo 'Votre inscription a été prise en compte, veuillez à présent vous connecter' ;
+				echo 'Votre inscription a été prise en compte, un mail vient de vous être envoyé, veuillez valider votre inscription avant de pouvoir vous connecter' ;
 			}
 			if (isset($_GET['error_insert'])) 
 			{
@@ -31,7 +31,7 @@
 			}
 		?>
 		</div> 
-    	<form action="do-inscription.php" method="post">
+    	<form action="do.inscription.php" method="post">
 		<div class="colonne">
 			<label for="identifiant"> Identifiant : </label>
 			<input id="identifiant" type="email" name="login" required/>

@@ -33,7 +33,7 @@
 		</div> 
 		<form action="inscription.php" method="post">
 			<div class="center">
-				<input class="bold" type="submit" value="---> Inscription <---"/>
+				<input class="bold" type="submit" value=" Inscription "/>
 			</div>
 		</form>
 		<div class="center">

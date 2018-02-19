@@ -1,14 +1,20 @@
 html {
     display: table;
     margin: auto;
+    background-color: rgb(255, 219, 231);
 }
 
-body {
-	background-color: rgba(141, 249, 224, 0.71);
-}
+/*body {
+	
+}*/
 
 h1{
 	color:rgba(232, 86, 126, 0.94);
+}
+
+.center{
+	display:flex;
+	justify-content: center;
 }
 
 .error{
@@ -21,7 +27,7 @@ h1{
 }
 
 .bold{
-	width: 100%;
+	/*width: 100%;*/
 	font-weight: bold;
 }
 

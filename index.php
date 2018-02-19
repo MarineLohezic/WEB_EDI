@@ -9,10 +9,13 @@
     	<header> <h1>WEB_EDI</h1> </header>
         <div class="error">
         <?php
-
+        	if (isset($_GET['valide'])) // On a eu une erreur
+			{
+				echo 'Votre compte a déjà été activé, veuillez a présent vous connecter' ;
+			}
        		if (isset($_GET['validation'])) // On a eu une erreur
 			{
-				echo 'Veuillez valider votre inscription avant de vouc connecter' ;
+				echo 'Veuillez valider votre inscription avant de vous connecter' ;
 			}
 
         	if (isset($_GET['auth'])) // On a eu une erreur

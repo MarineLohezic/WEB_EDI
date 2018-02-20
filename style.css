@@ -1,12 +1,11 @@
 html {
-    display: table;
-    margin: auto;
     background-color: rgb(255, 219, 231);
+    height: 100%;
 }
-
-/*body {
-	
-}*/
+body{
+	display: table;
+	margin: auto;
+}
 
 h1{
 	color:rgba(232, 86, 126, 0.94);
@@ -27,7 +26,6 @@ h1{
 }
 
 .bold{
-	/*width: 100%;*/
 	font-weight: bold;
 }
 

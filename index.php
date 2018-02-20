@@ -7,7 +7,7 @@
     </head>
     <body>
     	<header><div class="center"><h1>WEB_EDI</h1></div></header>
-        <div class="error">
+        <div class="error center">
         <?php
         	if (isset($_GET['valide'])) // On a eu une erreur
 			{

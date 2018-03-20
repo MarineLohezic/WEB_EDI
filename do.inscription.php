@@ -19,8 +19,8 @@ if($_POST['password1']!=$_POST['password2']){
 		$connection = new PDO(
     	"mysql:host=" . getenv("MYSQL_ADDON_HOST") . ";dbname=" . getenv("MYSQL_ADDON_DB"),
     	getenv("MYSQL_ADDON_USER"),
-    	getenv("MYSQL_ADDON_PASSWORD"),$options
-  		);
+    	getenv("MYSQL_ADDON_PASSWORD"),$options);
+
 	}catch( Exception $e )
 	{
 		echo "Connection à MySQL impossible : ", $e->getMessage();
@@ -40,6 +40,12 @@ if($_POST['password1']!=$_POST['password2']){
 		$hash= password_hash($_POST['password1'],PASSWORD_DEFAULT);
 		// On initialise la transaction
 		$connection-> beginTransaction();
+
+		echo( "
+
+			Transaction
+
+			");
 
 
 		$Requete_ajout=$connection-> prepare("Insert into UTILISATEURS (ID,LOGIN,MDP,NOM,PRENOM,NB_TENTATIVE,DATE_CONNEXION,VALIDATION) VALUES (NULL, ?,?,?,?,0,'2017-01-01',0);");

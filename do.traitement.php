@@ -34,7 +34,7 @@ $totalvir=0;
 for ($i = 1; $i <= 5; $i++) {
 	if(!empty($_POST['montant'.$i]) && !empty($_POST['Cmp_Or'.$i]) && !empty($_POST['Cmp_Dest'.$i])){
 		$execution[$i]=0;
-		$Requete_ajout=$connection-> prepare("Insert into OPERATIONS (ID,TYPE,MONTANT,CPT_ORIGINE,CPT_DEST,DEVISE,ID_UTILISATEUR,ID_LOT) VALUES (NULL, ?,?,?,?,?,?,?);");
+		$Requete_ajout=$connection-> prepare("Insert into operations (ID,TYPE,MONTANT,CPT_ORIGINE,CPT_DEST,DEVISE,ID_UTILISATEUR,ID_LOT) VALUES (NULL, ?,?,?,?,?,?,?);");
 		$execution[$i]=$Requete_ajout->execute(array($_POST['choix'.$i],intval($_POST['montant'.$i]), $_POST['Cmp_Or'.$i], $_POST['Cmp_Dest'.$i],$_POST['devise'.$i],$_SESSION['ID'],$date));
 
 		if($_POST['choix'.$i]=="Pre"){
@@ -49,7 +49,7 @@ for ($i = 1; $i <= 5; $i++) {
 	}
 }
 if ($vide == 5){
-	$Requete_preparee= $connection-> prepare("Select * from UTILISATEURS where id =?");
+	$Requete_preparee= $connection-> prepare("Select * from utilisateurs where id =?");
 	$Requete_preparee->bindParam(1,$_SESSION['ID']);
 	$Requete_preparee->execute();
 	$enregistrement = $Requete_preparee->fetch(PDO::FETCH_ASSOC);

@@ -1,14 +1,18 @@
 <?php
 try
 {
-	$host = 'mysql:host=localhost;dbname=WEB_EDI';
+	/*$host = 'mysql:host=localhost;dbname=WEB_EDI';
 	$utilisateur = 'root';
-	$motDePasse = NULL;
+	$motDePasse = NULL;*/
 	$options = array(
 		PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8",
 		PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION 
 	);
-	$connection = new PDO($host, $utilisateur, $motDePasse, $options);
+	$connection = new PDO(
+    	"mysql:host=" . getenv("MYSQL_ADDON_HOST") . ";dbname=" . getenv("MYSQL_ADDON_DB"),
+    	getenv("MYSQL_ADDON_USER"),
+    	getenv("MYSQL_ADDON_PASSWORD"),$options
+  	);
 }catch( Exception $e )
 {
 	echo "Connection à MySQL impossible : ", $e->getMessage();

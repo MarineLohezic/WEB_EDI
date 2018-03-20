@@ -10,11 +10,11 @@ try
 	);
 	//$connection = new PDO($host, $utilisateur, $motDePasse, $options);
 
-	 	$connection = new PDO(
+	$connection = new PDO(
     	"mysql:host=" . getenv("MYSQL_ADDON_HOST") . ";dbname=" . getenv("MYSQL_ADDON_DB"),
     	getenv("MYSQL_ADDON_USER"),
     	getenv("MYSQL_ADDON_PASSWORD"),$options
-  		);
+  	);
 }catch( Exception $e )
 {
 	echo "Connection à MySQL impossible : ", $e->getMessage();

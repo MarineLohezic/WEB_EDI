@@ -27,7 +27,7 @@ if($_POST['password1']!=$_POST['password2']){
 		die();
 	}
 
-	$Requete_preparee= $connection-> prepare("Select * from UTILISATEURS where login =?");
+	$Requete_preparee= $connection-> prepare("Select * from utilisateurs where login =?");
 	$Requete_preparee->bindParam(1,$_POST['login']);
 	$Requete_preparee->execute();
 
@@ -48,7 +48,7 @@ if($_POST['password1']!=$_POST['password2']){
 			");
 
 
-		$Requete_ajout=$connection-> prepare("Insert into UTILISATEURS (ID,LOGIN,MDP,NOM,PRENOM,NB_TENTATIVE,DATE_CONNEXION,VALIDATION) VALUES (NULL, ?,?,?,?,0,'2017-01-01',0);");
+		$Requete_ajout=$connection-> prepare("Insert into utilisateurs (ID,LOGIN,MDP,NOM,PRENOM,NB_TENTATIVE,DATE_CONNEXION,VALIDATION) VALUES (NULL, ?,?,?,?,0,'2017-01-01',0);");
 		$Requete_ajout->bindParam(1,$_POST['login']);
 		$Requete_ajout->bindParam(2,$hash);
 		$Requete_ajout->bindParam(3,$_POST['lastname']);
